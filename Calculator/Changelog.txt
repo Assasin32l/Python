@@ -3,42 +3,42 @@ Changelog for Calculator
 [1.0.0] 10.02.2025 19:12
 
     Added:
-    1. Tokenisation:
-        - Converts a mathematical expression into a list of tokens.
-        - Handles numbers, operators, parentheses, constants (e, pi), and functions (sqrt, sin, cos, tan, asin, acos, atan).
-        - Supports negative numbers, including those enclosed in parentheses.
+        1. Tokenisation:
+            - Converts a mathematical expression into a list of tokens.
+            - Handles numbers, operators, parentheses, constants (e, pi), and functions (sqrt, sin, cos, tan, asin, acos, atan).
+            - Supports negative numbers, including those enclosed in parentheses.
     
-    2. Term Validation:
-        - Validates the tokenized term to ensure it is a valid mathematical expression.
-        - Checks for proper placement of operators, functions, and parentheses.
+        2. Term Validation:
+            - Validates the tokenized term to ensure it is a valid mathematical expression.
+            - Checks for proper placement of operators, functions, and parentheses.
     
-    3. Infix to Postfix Conversion:
-        - Converts the tokenized infix expression to postfix notation using the Shunting Yard algorithm.
-        - Handles operator precedence and associativity.
-        - Supports functions and constants.
+        3. Infix to Postfix Conversion:
+            - Converts the tokenized infix expression to postfix notation using the Shunting Yard algorithm.
+            - Handles operator precedence and associativity.
+            - Supports functions and constants.
     
-    4. Postfix Evaluation:
-        - Evaluates the postfix expression to compute the result.
-        - Supports arithmetic operations, functions, and constants.
+        4. Postfix Evaluation:
+            - Evaluates the postfix expression to compute the result.
+            - Supports arithmetic operations, functions, and constants.
 
-    5. Tutorial:
-        - Provides a tutorial on how to use the calculator.
-        - Explains the supported numbers, operators, functions, constants, and parentheses.
-        - Includes example expressions.
+        5. Tutorial:
+            - Provides a tutorial on how to use the calculator.
+            - Explains the supported numbers, operators, functions, constants, and parentheses.
+            - Includes example expressions.
     
-    6. Main Menu:
-        - Displays a main menu with options to calculate, view history, view the tutorial, or quit.
-        - Handles user input to navigate the menu.
+        6. Main Menu:
+            - Displays a main menu with options to calculate, view history, view the tutorial, or quit.
+            - Handles user input to navigate the menu.
     
-    7. Calculation:
-        - Prompts the user to enter a mathematical expression.
-        - Tokenizes, validates, converts to postfix, and evaluates the expression.
-        - Displays the result of the calculation.
-        - Adds the calculation to the history.
+        7. Calculation:
+            - Prompts the user to enter a mathematical expression.
+            - Tokenizes, validates, converts to postfix, and evaluates the expression.
+            - Displays the result of the calculation.
+            - Adds the calculation to the history.
     
-    8. History:
-        - Maintains a history of the last 10 calculations.
-        - Displays the history upon user request.
+        8. History:
+            - Maintains a history of the last 10 calculations.
+            - Displays the history upon user request.
     
-    9. Quit:
-        - Allows the user to quit the program from the main menu.
+        9. Quit:
+            - Allows the user to quit the program from the main menu.

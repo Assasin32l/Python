@@ -1,3 +1,33 @@
 Changelog for Sudoku
 
-[1.0.0]
+[1.0.0] 10.02.2025 20:45
+
+    Added to Sudoku_9x9:
+        1. createBoard function:
+            - Initializes and fills a 9x9 Sudoku board.
+            - Includes helper functions to check rows, columns, and 3x3 boxes.
+            - Uses a backtracking algorithm to fill the board.
+
+        2. createDiagonal function:
+            - Fills the diagonal elements of the board with unique random numbers.
+
+        3. checkRow function:
+            - Checks if a number can be placed in a specific row.
+
+        4. checkCol function:
+            - Checks if a number can be placed in a specific column.
+
+        5. checkBox function:
+            - Checks if a number can be placed in a specific 3x3 box.
+
+        6. fillRemaining function:
+            - Recursively fills the remaining cells of the board using a backtracking algorithm.
+
+        7. printBoard function:
+            - Prints the Sudoku board in a formatted manner.        
+            - Includes row labels and separators for 3x3 sub-grids.
+        
+        8. Main block:
+            - Initializes an empty 9x9 board.
+            - Calls createBoard to fill the board.
+            - Calls printBoard to print the filled board.
