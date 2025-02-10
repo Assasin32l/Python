@@ -1,0 +1,3 @@
+Changelog for Sudoku
+
+[1.0.0]

@@ -1,4 +1,4 @@
-Changelog for Calculator.py
+Changelog for Calculator
 
 [1.0.0] 10.02.2025 19:12
 
