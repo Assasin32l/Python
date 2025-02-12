@@ -1,18 +1,7 @@
 import random
 
 
-def createBoard(board):
-    def createDiagonal(board):
-        nums = list(range(1, 10))
-
-        random.shuffle(nums)
-
-        for i in range(9):
-            board[i][i] = nums[i]
-        
-        return board
-
-
+def checkBoard(board, row, col, num):
     def checkRow(board, row, num):
         for i in range(9):
             if board[row][i] == num:
@@ -34,6 +23,22 @@ def createBoard(board):
                     return False
         
         return True
+    
+
+    if checkRow(board, row, num) and checkCol(board, col, num) and checkBox(board, row - row % 3, col - col % 3, num):
+        return True
+
+
+def createBoard(board, colorBoard, difficulty = 0):
+    def createDiagonal(board):
+        nums = list(range(1, 10))
+
+        random.shuffle(nums)
+
+        for i in range(9):
+            board[i][i] = nums[i]
+        
+        return board
 
 
     def fillRemaining(board):
@@ -41,7 +46,7 @@ def createBoard(board):
             for j in range(9):
                 if board[i][j] == 0:
                     for num in range(1, 10):
-                        if checkRow(board, i, num) and checkCol(board, j, num) and checkBox(board, i - i % 3, j - j % 3, num):
+                        if checkBoard(board, i, j, num):
                             board[i][j] = num
 
                             if fillRemaining(board):
@@ -53,13 +58,26 @@ def createBoard(board):
         
         return True
 
+
+    def removeCells(board, difficulty):
+        probabilities = [0, 1, 2, 3, 4, 5, 6, 6, 6]
+
+        for i in range(9):
+            for j in range(9):
+                if random.choice(probabilities) <= difficulty:
+                    board[i][j] = 0
+                    colorBoard[i][j] = 1
+
+
     board = createDiagonal(board)
 
     while not fillRemaining(board):
         print("Failed to fill the board.")
         continue
+    
+    removeCells(board, colorBoard, difficulty)
 
-    return board
+    return board, colorBoard
 
 
 def printBoard(board):
@@ -72,7 +90,10 @@ def printBoard(board):
         row = " " + row_labels[i] + " |"
 
         for j in range(9):
-            row += " " + str(board[i][j]) + " "
+            if board[i][j] == 0:
+                row += "   "
+            else:
+                row += " " + str(board[i][j]) + " "
 
             if (j + 1) % 3 == 0 and j != 8:
                 row += "|"
@@ -83,7 +104,28 @@ def printBoard(board):
             print("---+---------+---------+---------")
 
 
+def solveBoard(board):
+
+
+    printBoard(board)
+
+    s = True
+    while slct[0] not in "ABCDEFGHI" or int(slct[1]) not in range(1, 10) or int(slct[3]) not in range(1, 10) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
+        if s == True:
+            slct = input("\nSelect a cell to fill and the number to add to the cell: ")
+            s = False
+        else:
+            slct = input("\nInvalid input. Please try again: ")
+    
+    board[ord(slct[0]) - 65][int(slct[1]) - 1] = int(slct[3])
+
+    return 0
+
 if __name__ == "__main__":
     board = [[0 for _ in range(9)] for _ in range(9)]
-    board = createBoard(board)
-    printBoard(board)
+    colorBoard = [[0 for _ in range(9)] for _ in range(9)]
+
+    difficulty = int(input("Enter the difficulty level (1-5): "))
+
+    board, colorBoard = createBoard(board, colorBoard, difficulty)
+    solveBoard(board, colorBoard)
