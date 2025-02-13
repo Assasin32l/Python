@@ -143,9 +143,9 @@ def solveBoard(board, colorBoard):
         s = True
         slct = ""
 
-        while not slct or slct[0] not in "ABCDEFGHI" or int(slct[1]) not in range(1, 10) or int(slct[3]) not in range(1, 10) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
+        while not slct or not len(slct) > 2 or slct[0] not in "ABCDEFGHI" or int(slct[1]) not in range(1, 10) or int(slct[2]) not in range(1, 10) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
             if s == True:
-                slct = input("\nSelect a cell to fill and the number to add to the cell: ")
+                slct = input("\nSelect a cell to fill and the number to add to the cell: ").upper().replace(" ", "")
                 s = False
 
             else:
@@ -153,17 +153,17 @@ def solveBoard(board, colorBoard):
 
         row = ord(slct[0]) - 65
         col = int(slct[1]) - 1
-        num = int(slct[3])
-        action = slct[5] if len(slct) > 4 else ""
+        num = int(slct[2])
+        action = slct[3] if len(slct) > 3 else ""
 
-        if action == "p":
+        if action == "P":
             if colorBoard[row][col] == 3:
                 colorBoard[row][col] = 4
 
             else:
                 colorBoard[row][col] = 2
 
-        elif action == "b":
+        elif action == "B":
             if colorBoard[row][col] == 2:
                 colorBoard[row][col] = 4
 
