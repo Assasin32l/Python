@@ -6,14 +6,14 @@ def checkBoard(board, row, col, num):
         for i in range(9):
             if board[row][i] == num:
                 return False
-        
+
         return True
 
     def checkCol(board, col, num):
         for i in range(9):
             if board[i][col] == num:
                 return False
-        
+
         return True
 
     def checkBox(board, row, col, num):
@@ -21,9 +21,9 @@ def checkBoard(board, row, col, num):
             for j in range(3):
                 if board[i + row][j + col] == num:
                     return False
-        
+
         return True
-    
+
 
     if checkRow(board, row, num) and checkCol(board, col, num) and checkBox(board, row - row % 3, col - col % 3, num):
         return True
@@ -37,7 +37,7 @@ def createBoard(board, colorBoard, difficulty = 0):
 
         for i in range(9):
             board[i][i] = nums[i]
-        
+
         return board
 
 
@@ -51,15 +51,15 @@ def createBoard(board, colorBoard, difficulty = 0):
 
                             if fillRemaining(board):
                                 return True
-                            
+
                             board[i][j] = 0
-                    
+
                     return False
-        
+                
         return True
+    
 
-
-    def removeCells(board, difficulty):
+    def removeCells(board, colorBoard, difficulty):
         probabilities = [0, 1, 2, 3, 4, 5, 6, 6, 6]
 
         for i in range(9):
@@ -80,8 +80,9 @@ def createBoard(board, colorBoard, difficulty = 0):
     return board, colorBoard
 
 
-def printBoard(board):
+def printBoard(board, colorBoard):
     row_labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    colors = {0: "\033[0m", 1: "\033[92m", 2: "\033[93m", 3: "\033[91m"}
 
     print("   | 1  2  3 | 4  5  6 | 7  8  9")
     print("---+---------+---------+---------")
@@ -90,36 +91,59 @@ def printBoard(board):
         row = " " + row_labels[i] + " |"
 
         for j in range(9):
+            color = colors[colorBoard[i][j]]
+
             if board[i][j] == 0:
-                row += "   "
+                if colorBoard[i][j] == 2:
+                    row += color + " * " + colors[0]
+
+                elif colorBoard[i][j] == 3:
+                    row += color + " * " + colors[0]
+
+                else:
+                    row += "   "
+
             else:
-                row += " " + str(board[i][j]) + " "
+                row += color + " " + str(board[i][j]) + " " + colors[0]
 
             if (j + 1) % 3 == 0 and j != 8:
                 row += "|"
-        
+
         print(row)
 
         if (i + 1) % 3 == 0 and i != 8:
             print("---+---------+---------+---------")
 
 
-def solveBoard(board):
-
-
-    printBoard(board)
+def solveBoard(board, colorBoard):
+    printBoard(board, colorBoard)
 
     s = True
-    while slct[0] not in "ABCDEFGHI" or int(slct[1]) not in range(1, 10) or int(slct[3]) not in range(1, 10) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
+    slct = ""
+    
+    while not slct or slct[0] not in "ABCDEFGHI" or int(slct[1]) not in range(1, 10) or int(slct[3]) not in range(1, 10) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
         if s == True:
             slct = input("\nSelect a cell to fill and the number to add to the cell: ")
             s = False
+
         else:
             slct = input("\nInvalid input. Please try again: ")
-    
-    board[ord(slct[0]) - 65][int(slct[1]) - 1] = int(slct[3])
 
-    return 0
+    row = ord(slct[0]) - 65
+    col = int(slct[1]) - 1
+    num = int(slct[3])
+    action = slct[5] if len(slct) > 4 else ""
+
+    if action == "p":
+        colorBoard[row][col] = 2
+
+    elif action == "b":
+        colorBoard[row][col] = 3
+
+    elif checkBoard(board, row, col, num):
+        board[row][col] = num
+        colorBoard[row][col] = 1
+
 
 if __name__ == "__main__":
     board = [[0 for _ in range(9)] for _ in range(9)]
@@ -129,3 +153,4 @@ if __name__ == "__main__":
 
     board, colorBoard = createBoard(board, colorBoard, difficulty)
     solveBoard(board, colorBoard)
+    printBoard(board, colorBoard)
