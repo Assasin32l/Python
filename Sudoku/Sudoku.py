@@ -7,16 +7,16 @@ def checkBoard(board, row, col, num):
         for i in range(len(board)):
             if board[row][i] == num:
                 return False
-        
+            
         return True
 
     def checkCol():
         for i in range(len(board)):
             if board[i][col] == num:
                 return False
-        
+            
         return True
-    
+
     def checkBox():
         boxRowSize = int(sqrt(len(board)))
         boxColSize = len(board) // boxRowSize
@@ -28,24 +28,18 @@ def checkBoard(board, row, col, num):
             for j in range(boxColSize):
                 if board[i + startRow][j + startCol] == num:
                     return False
-        
+                
         return True
-    
 
-    if checkRow() and checkCol() and checkBox():
-        return True
-    
-    return False
+
+    return checkRow() and checkCol() and checkBox()
 
 
 def checkSize(boardSize):
     boxRowSize = int(sqrt(boardSize))
-    boxColSize = boardSize / boxRowSize
+    boxColSize = boardSize // boxRowSize
 
-    if boxColSize % 1 != 0:
-        return False
-    
-    return True
+    return boxRowSize * boxColSize == boardSize
 
 
 def createBoard(board, difficulty = 0):
@@ -78,7 +72,7 @@ def createBoard(board, difficulty = 0):
                     return False
 
         return True
-    
+
 
     def removeDigits():
         probability = [0, 1, 2, 3, 4, 5, 6, 6, 6]
@@ -87,7 +81,7 @@ def createBoard(board, difficulty = 0):
             for j in range(len(board)):
                 if random.choice(probability) <= difficulty:
                     board[i][j] = 0
-    
+
 
     boxRowSize = int(sqrt(len(board)))
     boxColSize = len(board) // boxRowSize
@@ -118,7 +112,7 @@ def printBoard(board, colorBoard):
         if (i + 1) % boxRowSize == 0:
             print("|", end = "")
 
-    
+
     rowBlank = "\n---+"
 
     for i in range(len(board)):
@@ -139,10 +133,10 @@ def printBoard(board, colorBoard):
             if board[i][j] == 0:
                 if colorBoard[i][j] in range(2, 5):
                     print(color, "*", colors[0], end = "")
-                
+
                 else:
                     print("   ", end = "")
-            
+
             else:
                 print(color, str(board[i][j]), colors[0], end = "")
             
@@ -172,7 +166,7 @@ def sudokuMenu():
     board = createBoard(board, difficulty)
 
     printBoard(board, colorBoard)
-        
+
 
 if __name__ == "__main__":
     sudokuMenu()
