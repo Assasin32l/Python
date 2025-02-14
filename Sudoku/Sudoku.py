@@ -17,22 +17,22 @@ def checkBoard(board, row, col, num):
         
         return True
     
-    def checkBox(row, col):
-        boxRow = int(sqrt(len(board)))
-        boxCol = int(len(board) / boxRow)
+    def checkBox():
+        boxRowSize = int(sqrt(len(board)))
+        boxColSize = len(board) // boxRowSize
 
-        row -= row % boxRow
-        col -= col % boxCol
+        startRow = row - row % boxRowSize
+        startCol = col - col % boxColSize
 
-        for i in range(boxRow):
-            for j in range(boxCol):
-                if board[i + row][j + col] == num:
+        for i in range(boxRowSize):
+            for j in range(boxColSize):
+                if board[i + startRow][j + startCol] == num:
                     return False
         
         return True
     
 
-    if checkRow() and checkCol() and checkBox(row, col):
+    if checkRow() and checkCol() and checkBox():
         return True
     
     return False
@@ -90,7 +90,7 @@ def createBoard(board, difficulty = 0):
     
 
     boxRowSize = int(sqrt(len(board)))
-    boxColSize = int(len(board) / boxRowSize)
+    boxColSize = len(board) // boxRowSize
 
     createDiagonal()
 
@@ -107,7 +107,7 @@ def printBoard(board, colorBoard):
     colors = {0: "\033[0m", 1: "\033[32m", 2: "\033[93m", 3: "\033[91m", 4: "\033[33m"}
     rowLabels = [i + 65 for i in range(len(board))]
     boxRowSize = int(sqrt(len(board)))
-    boxColSize = int(len(board) / boxRowSize)
+    boxColSize = len(board) // boxRowSize
 
 
     print("\n   |", end = "")
@@ -138,7 +138,7 @@ def printBoard(board, colorBoard):
 
             if board[i][j] == 0:
                 if colorBoard[i][j] in range(2, 5):
-                    print(color, " * ", colors[0], end = "")
+                    print(color, "*", colors[0], end = "")
                 
                 else:
                     print("   ", end = "")
