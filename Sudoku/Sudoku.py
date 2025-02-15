@@ -55,7 +55,6 @@ def createBoard(board, difficulty = 0):
             
             board[i][i] = nums[i % len(board)]
 
-
     def fillRemaining():
         for i in range(len(board)):
             for j in range(len(board)):
@@ -75,7 +74,6 @@ def createBoard(board, difficulty = 0):
                     return False
 
         return True
-
 
     def removeDigits():
         probability = [0, 1, 2, 3, 4, 5, 6, 6, 6]
@@ -150,6 +148,51 @@ def printBoard(board, colorBoard):
             print(end = rowBlank)
 
 
+def solveBoard(board, colorBoard):
+    while True:
+        printBoard(board, colorBoard)
+
+        if all(board[i][j] != 0 for i in range(len(board)) for j in range(len(board))):
+            print("\n\nCongratulations! You have completed the board.")
+            break
+
+        s = True
+        slct = ""
+
+        while not slct or not len(slct) > 2 or ord(slct[0]) not in range(len(board) + 65) or int(slct[1]) not in range(len(board) + 1) or int(slct[2]) not in range(len(board) + 1) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
+            if s == True:
+                slct = input("\n\nSelect a cell to fill and the number to add to the cell: ").upper().replace(" ", "")
+                s = False
+            
+            else:
+                slct = input("\n\nInvalid input. Please try again: ").upper().replace(" ", "")
+        
+        row = ord(slct[0]) - 65
+        col = int(slct[1]) - 1
+        num = int(slct[2])
+        action = slct[3] if len(slct) > 3 else ""
+
+        if action == "P":
+            if colorBoard[row][col] == 3:
+                colorBoard[row][col] = 4
+            
+            else:
+                colorBoard[row][col] = 2
+        
+        elif action == "B":
+            if colorBoard[row][col] == 2:
+                colorBoard[row][col] = 4
+            
+            else:
+                colorBoard[row][col] = 3
+        
+        elif checkBoard(board, row, col, num):
+            board[row][col] = num
+            colorBoard[row][col] = 1
+    
+    return board, colorBoard
+
+
 def sudokuMenu():
     boardSize = int(input("Enter the size of the board: "))
 
@@ -167,8 +210,7 @@ def sudokuMenu():
 
 
     board = createBoard(board, difficulty)
-
-    printBoard(board, colorBoard)
+    board, colorBoard = solveBoard(board, colorBoard)
 
 
 if __name__ == "__main__":
