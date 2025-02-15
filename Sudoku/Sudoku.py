@@ -159,7 +159,10 @@ def solveBoard(board, colorBoard):
         s = True
         slct = ""
 
-        while not slct or not len(slct) > 2 or ord(slct[0]) not in range(len(board) + 65) or int(slct[1]) not in range(len(board) + 1) or int(slct[2]) not in range(len(board) + 1) or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0:
+        while ( not slct or not len(slct) > 2 or ord(slct[0]) not in range(len(board) + 65) 
+                or int(slct[1]) not in range(len(board) + 1) or int(slct[2]) not in range(len(board) + 1) 
+                or board[ord(slct[0]) - 65][int(slct[1]) - 1] != 0 ):
+            
             if s == True:
                 slct = input("\n\nSelect a cell to fill and the number to add to the cell: ").upper().replace(" ", "")
                 s = False
