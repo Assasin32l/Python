@@ -36,6 +36,9 @@ def checkBoard(board, row, col, num):
 
 
 def checkSize(boardSize):
+    if boardSize < 4 or boardSize > 9:
+        return False
+
     boxColSize = int(sqrt(boardSize))
     boxRowSize = boardSize // boxColSize
 
@@ -104,13 +107,13 @@ def printBoard(board, colorBoard):
     boxRowSize = len(board) // boxColSize
 
 
-    print("\n   |", end = "")
+    print(end = "\n   |")
 
     for i in range(len(board)):
-        print(f" {i + 1} ", end = "")
-
+        print(end = f" {i + 1} ")
+        
         if (i + 1) % boxColSize == 0:
-            print("|", end = "")
+            print(end = "|")
 
 
     rowBlank = "\n---+"
@@ -121,7 +124,7 @@ def printBoard(board, colorBoard):
         if (i + 1) % boxColSize == 0:
             rowBlank += "+"
     
-    print(rowBlank, end = "")
+    print(end = rowBlank)
 
 
     for i in range(len(board)):
@@ -135,16 +138,16 @@ def printBoard(board, colorBoard):
                     print(color, "*", colors[0], end = "")
 
                 else:
-                    print("   ", end = "")
+                    print(end = "   ")
 
             else:
                 print(color, str(board[i][j]), colors[0], end = "")
             
             if (j + 1) % boxColSize == 0:
-                print("|", end = "")
+                print(end = "|")
         
         if (i + 1) % boxRowSize == 0:
-            print(rowBlank, end = "")
+            print(end = rowBlank)
 
 
 def sudokuMenu():
