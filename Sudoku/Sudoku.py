@@ -98,7 +98,7 @@ def createBoard(board, difficulty = 0):
     return board
 
 
-def printBoard(board, colorBoard):
+def printBoard(board, colorBoard, cellMarkers):
     colors = {0: "\033[0m", 1: "\033[32m", 2: "\033[93m", 3: "\033[91m", 4: "\033[33m"}
     rowLabels = [i + 65 for i in range(len(board))]
     boxColSize = int(sqrt(len(board)))
@@ -149,8 +149,10 @@ def printBoard(board, colorBoard):
 
 
 def solveBoard(board, colorBoard):
+    cellMarkers = {chr(i + 65) + str(j + 1): {} for i in range(len(board)) for j in range(len(board))}
+
     while True:
-        printBoard(board, colorBoard)
+        printBoard(board, colorBoard, cellMarkers)
 
         if all(board[i][j] != 0 for i in range(len(board)) for j in range(len(board))):
             print("\n\nCongratulations! You have completed the board.")
@@ -178,20 +180,26 @@ def solveBoard(board, colorBoard):
         if action == "P":
             if colorBoard[row][col] == 3:
                 colorBoard[row][col] = 4
-            
+                
             else:
                 colorBoard[row][col] = 2
-        
+
+            cellMarkers[slct[0:2]][num] = 2
+
         elif action == "B":
             if colorBoard[row][col] == 2:
                 colorBoard[row][col] = 4
             
             else:
                 colorBoard[row][col] = 3
+
+            cellMarkers[slct[0:2]][num] = 3
         
-        elif checkBoard(board, row, col, num):
+        elif checkBoard(board, row, col, num) and cellMarkers.get(slct[0:2], {}).get(num) != 3:
             board[row][col] = num
             colorBoard[row][col] = 1
+            del cellMarkers[slct[0:2]]
+
     
     return board, colorBoard
 
