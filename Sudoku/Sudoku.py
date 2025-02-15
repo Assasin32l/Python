@@ -18,8 +18,8 @@ def checkBoard(board, row, col, num):
         return True
 
     def checkBox():
-        boxRowSize = int(sqrt(len(board)))
-        boxColSize = len(board) // boxRowSize
+        boxColSize = int(sqrt(len(board)))
+        boxRowSize = len(board) // boxColSize
 
         startRow = row - row % boxRowSize
         startCol = col - col % boxColSize
@@ -36,8 +36,8 @@ def checkBoard(board, row, col, num):
 
 
 def checkSize(boardSize):
-    boxRowSize = int(sqrt(boardSize))
-    boxColSize = boardSize // boxRowSize
+    boxColSize = int(sqrt(boardSize))
+    boxRowSize = boardSize // boxColSize
 
     return boxRowSize * boxColSize == boardSize
 
@@ -83,8 +83,8 @@ def createBoard(board, difficulty = 0):
                     board[i][j] = 0
 
 
-    boxRowSize = int(sqrt(len(board)))
-    boxColSize = len(board) // boxRowSize
+    boxColSize = int(sqrt(len(board)))
+    boxRowSize = len(board) // boxColSize
 
     createDiagonal()
 
@@ -100,8 +100,8 @@ def createBoard(board, difficulty = 0):
 def printBoard(board, colorBoard):
     colors = {0: "\033[0m", 1: "\033[32m", 2: "\033[93m", 3: "\033[91m", 4: "\033[33m"}
     rowLabels = [i + 65 for i in range(len(board))]
-    boxRowSize = int(sqrt(len(board)))
-    boxColSize = len(board) // boxRowSize
+    boxColSize = int(sqrt(len(board)))
+    boxRowSize = len(board) // boxColSize
 
 
     print("\n   |", end = "")
@@ -109,7 +109,7 @@ def printBoard(board, colorBoard):
     for i in range(len(board)):
         print(f" {i + 1} ", end = "")
 
-        if (i + 1) % boxRowSize == 0:
+        if (i + 1) % boxColSize == 0:
             print("|", end = "")
 
 
@@ -118,7 +118,7 @@ def printBoard(board, colorBoard):
     for i in range(len(board)):
         rowBlank += "---"
 
-        if (i + 1) % boxRowSize == 0:
+        if (i + 1) % boxColSize == 0:
             rowBlank += "+"
     
     print(rowBlank, end = "")
@@ -140,10 +140,10 @@ def printBoard(board, colorBoard):
             else:
                 print(color, str(board[i][j]), colors[0], end = "")
             
-            if (j + 1) % boxRowSize == 0:
+            if (j + 1) % boxColSize == 0:
                 print("|", end = "")
         
-        if (i + 1) % boxColSize == 0:
+        if (i + 1) % boxRowSize == 0:
             print(rowBlank, end = "")
 
 
